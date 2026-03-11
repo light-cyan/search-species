@@ -1,0 +1,21 @@
+[project]
+name = "search-species"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.12.5",
+    "pytest>=9.0.2",
+    "rdkit>=2025.9.6",
+    "requests>=2.32.5",
+]
+
+
+[project.scripts]
+search = "search_species.main:search_cli"
+render = "search_species.main:render_cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
