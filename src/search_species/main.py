@@ -33,8 +33,11 @@ def search_cli() -> None:
     if args.engine in ["wikidata", "all"]:
         results.extend(wikidata.search(args.query, args.max_cands, output_dir))
 
-    for spec, path in results:
-        print(f"SpeciesCandidate({spec}) written -> {path}")
+    if not results:
+        print("No search results")
+    else:
+        for spec, path in results:
+            print(f"SpeciesCandidate({spec}) written -> {path}")
 
 
 def render_cli() -> None:

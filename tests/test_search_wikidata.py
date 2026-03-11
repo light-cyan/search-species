@@ -11,7 +11,7 @@ def test_search_wikidata1():
 
 
 def test_search_wikidata2():
-    verify_search_positive(engine,
+    verify_search_negative(engine,
                            "苹果",
                            5)
 

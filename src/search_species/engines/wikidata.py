@@ -65,6 +65,12 @@ class SpeciesProperty(TypedDict):
     imgUrl: Optional[str]
 
 
+transMap = str.maketrans(
+    "₀₁₂₃₄₅₆₇₈₉⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹·",
+    "0123456789+-0123456789*"
+)
+
+
 def fetchProperty(qid: str
                   ) -> List[SpeciesProperty]:
     speciesProperties: List[SpeciesProperty] = []
@@ -73,6 +79,12 @@ def fetchProperty(qid: str
     query = f"""
     SELECT ?label ?formula ?mass ?smiles ?image WHERE {{
       BIND(wd:{qid} AS ?compound)
+      FILTER EXISTS {{
+        {{ ?compound wdt:P233 ?anyS. }} UNION
+        {{ ?compound wdt:P2017 ?anyIS. }} UNION
+        {{ ?compound wdt:P274 ?anyF. }} UNION
+        {{ ?compound wdt:P231 ?anyCAS. }}
+      }}
       OPTIONAL {{ ?compound wdt:P274 ?formula. }}
       OPTIONAL {{ ?compound wdt:P2067 ?mass. }}
       OPTIONAL {{ ?compound wdt:P233 ?smiles. }}
@@ -96,10 +108,8 @@ def fetchProperty(qid: str
             for prop in properties:
                 name = prop.get("label", {}).get("value", None)
                 formula = prop.get("formula", {}).get("value", None)
-                if type(formula) is str:
-                    formula = formula.translate(  # Console defaults to GBK encoding
-                        str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
-                    )
+                if type(formula) is str:  # Console defaults to GBK encoding
+                    formula = formula.translate(transMap)
                 weight = float(prop.get("mass", {}).get("value", None)
                                or 0) or None
                 smiles = prop.get("smiles", {}).get("value", None)

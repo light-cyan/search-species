@@ -40,7 +40,7 @@ def verify_search_negative(engine: str, query: str, nCands: int):
         cwd=TEST_ROOT
     )
 
-    assert "RequestError(" in result.stderr
+    assert "RequestError(" in result.stderr or "No search results" in result.stdout
     final_files = set(glob.glob(os.path.join(TEST_CACHE, "*.json")))
     new_files = final_files - initial_files
     assert len(new_files) == 0
