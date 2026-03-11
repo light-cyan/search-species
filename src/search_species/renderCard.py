@@ -8,10 +8,28 @@ from PIL import Image, ImageDraw, ImageFont
 import warnings
 from typing import List, Optional, Tuple
 
+from . import PACKAGE_ROOT
 from ._schema import SpeciesCandidate
 from ._config import (STRUCT_WIDTH, STRUCT_HEIGHT, CARD_WIDTH, CARD_HEIGHT, DIVIDER_WIDTH,
-                      COLUMNS, FONT_SIZE, CHARS_PER_LINE, TEXT_OFFEST_X, TEXT_OFFEST_Y
+                      COLUMNS, FONT_SIZE, CHARS_PER_LINE, TEXT_OFFEST_X, TEXT_OFFEST_Y,
+                      PROP_MAX_LEN
                       )
+from .utils.truncate import truncate
+
+
+FONT_PATH = PACKAGE_ROOT / "assets" / "consola.ttf"
+
+
+def getFont(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+    try:
+        return ImageFont.truetype(str(FONT_PATH), size)
+    except OSError:
+        pass
+
+    return ImageFont.load_default()
+
+
+FONT = getFont(FONT_SIZE)
 
 
 def _creatPlaceholderImg() -> Image.Image:
@@ -27,7 +45,6 @@ def _creatPlaceholderImg() -> Image.Image:
     return placeholderImg
 
 
-FONT = ImageFont.truetype("arial.ttf", FONT_SIZE)
 PLACEHOLDER_IMG = _creatPlaceholderImg()
 
 
@@ -91,8 +108,13 @@ def renderCards(jsonFilePaths: List[str],
             f"Weight: {data.weight}",
             f"SMILES: {data.smiles}"
         ]
-        infoStr = "\n\n".join(textwrap.fill(line, width=CHARS_PER_LINE)
-                              for line in infoLines)
+        infoLines = [truncate(l, PROP_MAX_LEN) for l in infoLines]
+        infoStr = "\n\n\n".join(
+            "\n\n".join(
+                textwrap.wrap(line, width=CHARS_PER_LINE,
+                              break_long_words=True)
+            )
+            for line in infoLines)
         draw.text((x + STRUCT_WIDTH + TEXT_OFFEST_X, y + TEXT_OFFEST_Y),
                   infoStr, fill="black", font=FONT)
 

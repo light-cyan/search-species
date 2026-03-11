@@ -19,3 +19,6 @@ render = "search_species.main:render_cli"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.setuptools.package-data]
+"search_species" = ["assets/*.ttf"]

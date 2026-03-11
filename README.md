@@ -5,10 +5,10 @@
 | Feature | **OPSIN** | **PubChem** | **Wikidata** |
 | :--- | :--- | :--- | :--- |
 | **Core Method** | Algorithmic Parser | Curated Database | Knowledge Graph |
+| **Primary Input** | IUPAC English Names | Names, CIDs, SMILES | **Common & Multilingual Names** |
 | **Molecular Image** | **Supported** (Rendered) | **Supported** (Stored) | **Rarely Available** |
 | **Mass/Formula** | Calculated via **RDKit** | Database Metadata | Database Metadata |
-| **Primary Input** | IUPAC English Names | Names, CIDs, SMILES | **Multi-language Names**, IDs |
-| **Key Strength** | Handles theoretical molecules. | Highly standardized data. | **Cross-lingual** flexibility. |
+| **Key Strength** | Handles theoretical molecules. | Highly standardized data. | **Vernacular** & Cross-lingual. |
 
 ---
 
@@ -18,10 +18,11 @@
     * **Real-time Rendering**: Automatically generates a 2D molecular image based on the parsed structure.
     * **RDKit Integration**: Since OPSIN only returns the structure, `search-species` uses **`rdkit.Chem`** to calculate the **Molecular Formula** and **Relative Atomic Mass** from the resulting SMILES.
 * **Deficiencies**:
-    * **Strict Nomenclature**: Cannot recognize common names or trade names (e.g., it understands `2-acetyloxybenzoic acid` but not `Aspirin`).
+    * **Strict Nomenclature Only**: Cannot recognize **Common Names** or trade names. For example, it understands `2-acetyloxybenzoic acid` but will fail on `Aspirin`.
 
 ### 2. PubChem
 * **Capabilities**:
+    * **Established Alias Support**: Successfully matches queries against a massive index of common chemical aliases and trade names known in the industry.
     * **Comprehensive Metadata**: Matches queries against the world's largest free chemical database with high reliability for known substances.
     * **Standardized Images**: Provides professional, high-quality 2D structural diagrams for nearly all entries.
 * **Deficiencies**:
@@ -29,15 +30,17 @@
 
 ### 3. Wikidata
 * **Capabilities**:
-    * **Multilingual Search**: Supports queries in various scripts and localized names, making it the most flexible engine for non-English users.
-        * *Examples*: `阿司匹林` (Chinese), `アスピリン` (Japanese), `Аспирин` (Russian), `Aspirin` (German).
-    * **Character Normalization**: Automatically cleanses chemical formulas by converting Unicode formatting into standard ASCII. This ensures the output is compatible with computational backends like **OpenClaw** or **RDKit**.
-        * **Sub/Superscripts**: $₀₁₂₃₄₅₆₇₈₉$ and $⁰¹²³⁴⁵⁶⁷⁸⁹$ $\to$ `0-9`
-        * **Charges & Symbols**: $⁺ ⁻ ·$ $\to$ `+ - *`
-        * *Example Conversion*: $Fe³⁺$ $\to$ `Fe3+` ; $CuSO₄·5H₂O$ $\to$ `CuSO4*5H2O`
+    * **Common & Multilingual Names**: As a global knowledge graph, it is the primary engine for **Common Names (俗名)** and non-English terms. It handles vernacular nomenclature across different scripts with high flexibility.
+        * *Examples*: `阿司匹林` (Chinese), `アスピリン` (Japanese), `Аспирин` (Russian), `Aspirin` (German/English).
 * **Deficiencies**:
     * **Image Scarcity**: Unlike specialized chemical databases, Wikidata entries frequently lack standard molecular diagrams or structural images.
     * **Disabled Cross-Indexing**: Although Wikidata acts as a hub for IDs (CAS, ChemSpider, etc.), cross-database indexing is **not currently enabled** in this tool. It will only return data natively stored in Wikidata.
+* **Data Processing Note (Character Normalization)**:
+    * Unlike standard chemical databases, raw Wikidata entries often contain non-standard Unicode formatting. `search-species` automatically cleanses these formulas into standard ASCII. 
+    * *Note*: This means the tool's normalized output will look different from a direct web search on Wikidata.
+        * **Sub/Superscripts**: $₀₁₂₃₄₅₆₇₈₉$ and $⁰¹²³⁴⁵⁶⁷⁸⁹$ $\to$ `0-9`
+        * **Charges & Symbols**: $⁺ ⁻ ·$ $\to$ `+ - *`
+        * *Example Conversion*: $Fe³⁺$ $\to$ `Fe3+` ; $CuSO₄·5H₂O$ $\to$ `CuSO4*5H2O`
 
 ---
 

@@ -6,6 +6,8 @@ from datetime import datetime
 
 from typing import Any, Literal, Optional
 
+from .utils.truncate import truncate
+
 
 class SpeciesCandidate(BaseModel):
     source: Literal["OPSIN", "PubChem", "WikiData"]
@@ -18,15 +20,8 @@ class SpeciesCandidate(BaseModel):
     imgRes: Optional[bytes] = Field(default=None, exclude=True, repr=False)
     _identifier: str = PrivateAttr()
 
-    @staticmethod
-    def cutName(name: str, maxlen: int):
-        if len(name) <= maxlen:
-            return name
-        else:
-            return name[:maxlen-3] + "..."
-
     def model_post_init(self, __context: Any) -> None:
-        nameCut = SpeciesCandidate.cutName(self.name, 10)
+        nameCut = truncate(self.name, 10)
         self._identifier = f"search{self.source}_{datetime.now():%Y%m%d%H%M%S}_{nameCut}_"
 
     def save2cache(self, outputDir: Path) -> str:
