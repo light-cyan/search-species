@@ -35,7 +35,7 @@
 
 ### 3. Wikidata
 * **Capabilities**:
-    * **Common & Multilingual Names**: As a global knowledge graph, it is the primary engine for **Common Names (俗名)** and non-English terms. It handles vernacular nomenclature across different scripts with high flexibility.
+    * **Common & Multilingual Names**: As a global knowledge graph, it is the primary engine for **Common Names** and non-English terms. It handles vernacular nomenclature across different scripts with high flexibility.
         * *Examples*: `阿司匹林` (Chinese), `アスピリン` (Japanese), `Аспирин` (Russian), `Aspirin` (German/English).
 * **Deficiencies**:
     * **Image Scarcity**: Unlike specialized chemical databases, Wikidata entries frequently lack standard molecular diagrams or structural images.
