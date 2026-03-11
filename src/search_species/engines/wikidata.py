@@ -62,7 +62,7 @@ class SpeciesProperty(TypedDict):
     formula: Optional[str]
     weight: Optional[float]
     smiles: Optional[str]
-    imageFile: Optional[str]
+    imgUrl: Optional[str]
 
 
 def fetchProperty(qid: str
@@ -96,10 +96,22 @@ def fetchProperty(qid: str
             for prop in properties:
                 name = prop.get("label", {}).get("value", None)
                 formula = prop.get("formula", {}).get("value", None)
+                if type(formula) is str:
+                    formula = formula.translate(  # Console defaults to GBK encoding
+                        str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
+                    )
                 weight = float(prop.get("mass", {}).get("value", None)
                                or 0) or None
                 smiles = prop.get("smiles", {}).get("value", None)
-                imageFile = prop.get("image", {}).get("value", None)
+                imgProp = prop.get("image", {}).get("value", None)
+                imgUrl = None
+                if type(imgProp) is str:
+                    if imgProp.startswith("http:"):
+                        imgUrl = "https:" + imgProp.removeprefix("http:")
+                    elif imgProp.startswith("https:"):
+                        imgUrl = imgProp
+                    else:
+                        imgUrl = baseImgUrl + quote(imgProp)
                 speciesProperties.append(
                     SpeciesProperty(
                         qid=qid,
@@ -107,7 +119,7 @@ def fetchProperty(qid: str
                         formula=formula,
                         weight=weight,
                         smiles=smiles,
-                        imageFile=imageFile
+                        imgUrl=imgUrl
                     )
                 )
 
@@ -122,12 +134,11 @@ def fetchProperty(qid: str
     return speciesProperties
 
 
-def fetchImage(filename: Optional[str]
+def fetchImage(imgUrl: Optional[str]
                ) -> Optional[bytes]:
     imgRes: Optional[bytes] = None
-    if not filename:
+    if not imgUrl:
         return imgRes
-    imgUrl = baseImgUrl + f"/{quote(filename)}"
     try:
         response = requests.get(imgUrl, headers={"User-Agent": CONTENT__USER_AGENT},
                                 timeout=10)
@@ -161,7 +172,7 @@ def search(query: str,
 
         for prop in properties:
 
-            imgRes = fetchImage(prop["imageFile"])
+            imgRes = fetchImage(prop["imgUrl"])
             specData = SpeciesCandidate(
                 source="WikiData",
                 name=prop["name"] or "Name Not Found",

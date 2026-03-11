@@ -1,0 +1,8 @@
+{
+    "source": "OPSIN",
+    "name": "(2S,5R,6R)-3,3-dimethyl-7-oxo-6-[(2-phenylacetyl)amino]-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid",
+    "formula": "C16H18N2O4S",
+    "weight": 334.0987280559999,
+    "smiles": "CC1([C@@H](N2C([C@H]([C@H]2S1)NC(CC1=CC=CC=C1)=O)=O)C(=O)O)C",
+    "imgName": "searchOPSIN_20260311164731_(2S,5R,..._.png"
+}

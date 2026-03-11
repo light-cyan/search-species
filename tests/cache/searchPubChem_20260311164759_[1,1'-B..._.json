@@ -1,0 +1,8 @@
+{
+    "source": "PubChem",
+    "name": "[1,1'-Biphenyl]-2-ol, compd. with 1-amino-2-propanol (1:1)",
+    "formula": "C15H19NO2",
+    "weight": 245.32,
+    "smiles": "CC(CN)O.C1=CC=C(C=C1)C2=CC=CC=C2O",
+    "imgName": "searchPubChem_20260311164759_[1,1'-B..._.png"
+}

@@ -1,0 +1,8 @@
+{
+    "source": "PubChem",
+    "name": "Potassium o-phenylphenate",
+    "formula": "C12H9KO",
+    "weight": 208.3,
+    "smiles": "C1=CC=C(C=C1)C2=CC=CC=C2[O-].[K+]",
+    "imgName": "searchPubChem_20260311164756_Potassi..._.png"
+}

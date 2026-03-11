@@ -12,11 +12,21 @@ def test_render_help():
     assert "Render species candidate cards" in result.stdout
 
 
+jsonFiles = ["jsons4renderTest/species4render1.json",
+             "jsons4renderTest/species4render2.json",
+             "jsons4renderTest/species4render3.json",
+             "jsons4renderTest/species4render4.json",
+             "jsons4renderTest/species4render5.json",
+             ]
+
+
 def test_render():
     initial_files = set(glob.glob(os.path.join(TEST_GALLERY, "*.png")))
 
     result = subprocess.run(
-        ["render", "-o", TEST_GALLERY],
+        ["render",
+            *jsonFiles,
+            "-o", TEST_GALLERY],
         capture_output=True,
         text=True,
         check=True,

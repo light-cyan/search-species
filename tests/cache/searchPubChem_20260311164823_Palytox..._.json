@@ -1,0 +1,8 @@
+{
+    "source": "PubChem",
+    "name": "Palytoxin carboxylic acid",
+    "formula": "C123H213NO53",
+    "weight": 2554.0,
+    "smiles": "CC1CC2(C(OC(C1)(O2)CCCCCCCC(CC3C(C(C(C(O3)(CC(C(C)/C=C/C(CCC(C(C4CC(C(C(O4)CC(C(CC5C(C(C(C(O5)CC(/C=C\\C=C\\CC(C(C(C/C=C\\C(=C)CCC(C(C(C(C)CC6C(C(C(C(O6)/C=C\\C(C(CC7CC8CC(O7)C(O8)CCC9C(CC(O9)CN)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)O)CC(C)CCCCCC(C(C(C(C(C1C(C(C(C(O1)CC(C(/C(=C/C(CC(C)C(C(=O)O)O)O)/C)O)O)O)O)O)O)O)O)O)O)C",
+    "imgName": "searchPubChem_20260311164823_Palytox..._.png"
+}

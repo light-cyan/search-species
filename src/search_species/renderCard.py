@@ -6,7 +6,7 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 
 import warnings
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from ._schema import SpeciesCandidate
 from ._config import (STRUCT_WIDTH, STRUCT_HEIGHT, CARD_WIDTH, CARD_HEIGHT, DIVIDER_WIDTH,
@@ -34,7 +34,7 @@ PLACEHOLDER_IMG = _creatPlaceholderImg()
 def renderCards(jsonFilePaths: List[str],
                 outputDir: str
                 ) -> Optional[str]:
-    cardsData: List[SpeciesCandidate] = []
+    cardsData: List[Tuple[SpeciesCandidate, Path]] = []
     for jsonPath in jsonFilePaths:
         try:
             jsonPath = Path(jsonPath)
@@ -42,7 +42,8 @@ def renderCards(jsonFilePaths: List[str],
                 new_species = SpeciesCandidate.model_validate_json(
                     jsonPath.read_text(encoding="utf-8")
                 )
-                cardsData.append(new_species)
+                dir4json = jsonPath.parent
+                cardsData.append((new_species, dir4json))
             else:
                 raise FileNotFoundError(jsonPath)
 
@@ -61,14 +62,14 @@ def renderCards(jsonFilePaths: List[str],
                          "white")
     draw = ImageDraw.Draw(finalImg)
 
-    for idx, data in enumerate(cardsData):
+    for idx, (data, fileDir) in enumerate(cardsData):
         x = (idx % COLUMNS) * CARD_WIDTH
         y = (idx // COLUMNS) * CARD_HEIGHT
 
         img = None
         if data.imgName:
             try:
-                imgPath = Path(outputDir) / data.imgName
+                imgPath = fileDir / data.imgName
                 img = Image.open(imgPath).convert("RGBA")
                 origW, origH = img.size
                 scale = min(STRUCT_WIDTH / origW, STRUCT_HEIGHT / origH)
@@ -103,5 +104,6 @@ def renderCards(jsonFilePaths: List[str],
 
     imgName = f"renderResult_{datetime.now():%Y%m%d%H%M%S}_{len(cardsData)}.png"
     imgPath = Path(outputDir) / imgName
+    imgPath.parent.mkdir(parents=True, exist_ok=True)
     finalImg.save(imgPath)
     return str(imgPath)

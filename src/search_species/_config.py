@@ -3,7 +3,7 @@
 
 ERR_MSG_MAX_LEN = 300
 
-CONTENT__USER_AGENT = "skill4searchSpecies/1.0 (ding_mingwei@outlook.com)"
+CONTENT__USER_AGENT = "skill4searchSpecies/1.0 "
 
 STRUCT_WIDTH = 600
 STRUCT_HEIGHT = 600
