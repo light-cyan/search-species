@@ -1,7 +1,7 @@
 [project]
 name = "search-species"
 version = "0.1.0"
-description = "Add your description here"
+description = "A command-line tool that can search for chemical substances through PubChem, OPSIN, and Wikidata, and supports rendering of search results."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -13,8 +13,8 @@ dependencies = [
 
 
 [project.scripts]
-search = "search_species.main:search_cli"
-render = "search_species.main:render_cli"
+search-species = "search_species.main:search_cli"
+render-species = "search_species.main:render_cli"
 
 [build-system]
 requires = ["hatchling"]

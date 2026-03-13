@@ -15,9 +15,9 @@ def search_cli() -> None:
     parser.add_argument("query", type=str, metavar="NAME",
                         help="Chemical name or query string")
     parser.add_argument("max_cands", type=int, nargs='?', default=3, metavar="INT",
-                        help="Maximum search results (ignored by OPSIN, default: 3)")
+                        help="Maximum search results (ignored by OPSIN, (default: %(default)s))")
     parser.add_argument("-o", "--output_dir", type=str, default="./cache", metavar="DIR",
-                        help="Output directory (default: ./cache)")
+                        help="Output directory (default: %(default)s)")
     args = parser.parse_args()
 
     output_dir = args.output_dir
@@ -49,7 +49,7 @@ def render_cli() -> None:
     parser.add_argument("candidate_files", nargs="+", metavar="JSON",
                         help="JSON files of species records")
     parser.add_argument("-o", "--output_dir", type=str, default="./gallery", metavar="DIR",
-                        help="Output directory for images (default: ./gallery)")
+                        help="Output directory for images (default: %(default)s)")
     args = parser.parse_args()
 
     output_dir = args.output_dir
