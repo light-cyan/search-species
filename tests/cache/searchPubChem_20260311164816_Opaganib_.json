@@ -1,8 +1,0 @@
-{
-    "source": "PubChem",
-    "name": "Opaganib",
-    "formula": "C23H25ClN2O",
-    "weight": 380.9,
-    "smiles": "C1C2CC3(CC1CC(C2)(C3)C(=O)NCC4=CC=NC=C4)C5=CC=C(C=C5)Cl",
-    "imgName": "searchPubChem_20260311164816_Opaganib_.png"
-}

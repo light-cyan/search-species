@@ -1,8 +1,0 @@
-{
-    "source": "PubChem",
-    "name": "Ziagen",
-    "formula": "C14H20N6O5S",
-    "weight": 384.41,
-    "smiles": "C1CC1NC2=C3C(=NC(=N2)N)N(C=N3)[C@@H]4C[C@@H](C=C4)CO.OS(=O)(=O)O",
-    "imgName": "searchPubChem_20260311164806_Ziagen_.png"
-}

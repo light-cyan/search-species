@@ -1,8 +1,0 @@
-{
-    "source": "WikiData",
-    "name": "TNT",
-    "formula": "C7H5N3O6",
-    "weight": 227.018,
-    "smiles": "CC1=C(C=C(C=C1[N+](=O)[O-])[N+](=O)[O-])[N+](=O)[O-]",
-    "imgName": null
-}

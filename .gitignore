@@ -15,3 +15,7 @@ wheels/
 # dmw
 test.py
 draft.txt
+
+# test
+tests/cache/
+tests/gallery/

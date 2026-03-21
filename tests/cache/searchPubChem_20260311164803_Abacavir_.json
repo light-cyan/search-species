@@ -1,8 +1,0 @@
-{
-    "source": "PubChem",
-    "name": "Abacavir",
-    "formula": "C14H18N6O",
-    "weight": 286.33,
-    "smiles": "C1CC1NC2=C3C(=NC(=N2)N)N(C=N3)[C@@H]4C[C@@H](C=C4)CO",
-    "imgName": "searchPubChem_20260311164803_Abacavir_.png"
-}
